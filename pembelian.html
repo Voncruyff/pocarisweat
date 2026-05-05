@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beli Pocari Sweat – GO SWEAT GO ION!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@300;400;600&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue-deep: #072d5a; --blue-mid: #1060b8; --blue-bright: #2196f3;
+      --blue-sky: #7dd8ff; --white: #ffffff; --accent: #00d8ff; --accent2: #0af0c8;
+      --text-muted: rgba(255,255,255,0.70);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--blue-deep); color: var(--white); min-height: 100vh; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; height: 64px; background: rgba(7,45,90,0.85); backdrop-filter: blur(18px); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .nav-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.35rem; letter-spacing: 3px; text-transform: uppercase; color: var(--white); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { display: flex; align-items: center; gap: 8px; text-decoration: none; color: rgba(255,255,255,0.7); font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; transition: color .2s; }
+    .nav-back:hover { color: var(--accent); }
+
+    .page-hero { padding: 100px 7vw 60px; background: linear-gradient(135deg, #061e3d 0%, #0a4d95 60%, #0e68b3 100%); position: relative; overflow: hidden; text-align: center; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(0,216,255,0.15) 0%, transparent 60%); }
+    .page-hero h1 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; text-transform: uppercase; letter-spacing: -1px; position: relative; }
+    .page-hero h1 span { color: var(--accent); }
+    .page-hero p { margin-top: 12px; color: var(--text-muted); font-size: 1rem; position: relative; }
+
+    .shop-section { padding: 60px 7vw; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+
+    .product-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; overflow: hidden; transition: transform .3s, border-color .3s, box-shadow .3s; display: flex; flex-direction: column; }
+    .product-card:hover { transform: translateY(-8px); border-color: rgba(0,216,255,0.3); box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,216,255,0.1); }
+
+    .card-img-wrap { background: linear-gradient(135deg, #0a4d95 0%, #1060b8 100%); padding: 40px 30px; display: flex; align-items: center; justify-content: center; position: relative; min-height: 200px; }
+    .card-img-wrap img { height: 160px; object-fit: contain; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.4)); transition: transform .3s; }
+    .product-card:hover .card-img-wrap img { transform: scale(1.05) translateY(-4px); }
+    .card-badge { position: absolute; top: 14px; right: 14px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: var(--blue-deep); font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.68rem; padding: 5px 12px; border-radius: 20px; letter-spacing: 1.5px; text-transform: uppercase; }
+
+    .card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .card-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.6; }
+    .card-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .card-tag { font-size: 0.72rem; background: rgba(0,216,255,0.1); border: 1px solid rgba(0,216,255,0.2); color: var(--accent); padding: 4px 10px; border-radius: 20px; letter-spacing: 1px; }
+    .card-footer { padding: 0 24px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .card-price { font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 900; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .card-qty { display: flex; align-items: center; gap: 8px; }
+    .qty-btn { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.05); color: var(--white); font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color .2s, background .2s; line-height: 1; }
+    .qty-btn:hover { border-color: var(--accent); background: rgba(0,216,255,0.1); color: var(--accent); }
+    .qty-num { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; min-width: 28px; text-align: center; }
+
+    .buy-btn-card { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; border-radius: 14px; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1rem; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; border: none; background: linear-gradient(130deg, var(--accent) 0%, var(--blue-bright) 100%); color: var(--blue-deep); margin: 0 24px 24px; width: calc(100% - 48px); transition: transform .2s, box-shadow .2s; box-shadow: 0 6px 20px rgba(0,216,255,0.3); }
+    .buy-btn-card:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(0,216,255,0.5); }
+
+    /* Order Summary */
+    .order-summary { max-width: 640px; margin: 40px auto 0; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 32px; }
+    .order-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px; color: var(--accent); }
+    .order-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 0.9rem; color: var(--text-muted); }
+    .order-row:last-of-type { border-bottom: none; }
+    .order-total { font-family: 'Barlow Condensed', sans-serif; font-size: 1.8rem; font-weight: 900; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .checkout-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 18px; border-radius: 16px; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.15rem; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; border: none; background: linear-gradient(130deg, var(--accent) 0%, var(--blue-bright) 100%); color: var(--blue-deep); margin-top: 20px; transition: transform .2s, box-shadow .2s; box-shadow: 0 8px 30px rgba(0,216,255,0.4); text-decoration: none; }
+    .checkout-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 50px rgba(0,216,255,0.6); }
+    .order-empty { text-align: center; color: var(--text-muted); padding: 20px 0; font-size: 0.9rem; }
+
+    footer { background: #030f1f; padding: clamp(24px, 3vw, 40px) 7vw; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 60px; }
+    .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.3rem; letter-spacing: 3px; text-transform: uppercase; }
+    .footer-logo span { color: var(--accent); }
+    .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.3); }
+
+    @media (max-width: 600px) { .products-grid { grid-template-columns: 1fr; } .shop-section { padding: 40px 5vw; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">POCARI<span>&nbsp;SWEAT</span></a>
+  <a class="nav-back" href="index.html">← Kembali</a>
+</nav>
+
+<div class="page-hero">
+  <h1>PILIH <span>PRODUKMU</span></h1>
+  <p>Ion Supply Drink untuk aktivitas maksimal setiap hari</p>
+</div>
+
+<section class="shop-section">
+  <div class="products-grid">
+
+    <!-- Product 1 -->
+    <div class="product-card">
+      <div class="card-img-wrap">
+        <img src="pocari-330ml.png" alt="Pocari Sweat 330ml"/>
+        <div class="card-badge">Paling Laku</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Pocari Sweat 330ml</div>
+        <div class="card-desc">Ukuran ideal untuk aktivitas harian. Mudah dibawa, segar di mana saja.</div>
+        <div class="card-tags">
+          <span class="card-tag">⚡ Serap Cepat</span>
+          <span class="card-tag">💧 Isotonik</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">Rp6.000</div>
+        <div class="card-qty">
+          <button class="qty-btn" onclick="changeQty('p1', -1)">−</button>
+          <span class="qty-num" id="qty-p1">1</span>
+          <button class="qty-btn" onclick="changeQty('p1', 1)">+</button>
+        </div>
+      </div>
+      <button class="buy-btn-card" onclick="addToCart('Pocari Sweat 330ml', 'p1', 6000)">🛒 Tambah ke Keranjang</button>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product-card">
+      <div class="card-img-wrap">
+        <img src="pocari-2L.png" alt="Pocari Sweat 2L" style="height:140px; opacity:0.9; transform: scale(1.1);"/>
+        <div class="card-badge" style="background:linear-gradient(135deg,#2196f3,#0af0c8)">Hemat</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Pocari Sweat 500ml</div>
+        <div class="card-desc">Untuk olahraga dan aktivitas fisik intensif. Rehidrasi lebih lama, lebih optimal.</div>
+        <div class="card-tags">
+          <span class="card-tag">💪 Sport Edition</span>
+          <span class="card-tag">🔋 Full Elektrolit</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">Rp22.500</div>
+        <div class="card-qty">
+          <button class="qty-btn" onclick="changeQty('p2', -1)">−</button>
+          <span class="qty-num" id="qty-p2">1</span>
+          <button class="qty-btn" onclick="changeQty('p2', 1)">+</button>
+        </div>
+      </div>
+      <button class="buy-btn-card" onclick="addToCart('Pocari Sweat 500ml', 'p2', 8500)">🛒 Tambah ke Keranjang</button>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="product-card">
+      <div class="card-img-wrap" style="background: linear-gradient(135deg, #1e3c72 0%, #0e68b3 100%);">
+        <img src="pocari-paket.png" alt="Pocari Sweat 5-Pack" style="height:130px; filter:drop-shadow(0 10px 30px rgba(0,0,0,0.5));"/>
+        <div class="card-badge" style="background:linear-gradient(135deg,#f9a825,#ff6f00); color:#fff;">Paket</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Pocari Sweat 6-Pack</div>
+        <div class="card-desc">Paket keluarga isi 6 kaleng 330ml. Stok mingguan untuk seluruh keluarga aktif.</div>
+        <div class="card-tags">
+          <span class="card-tag">👨‍👩‍👧 Paket Keluarga</span>
+          <span class="card-tag">💰 Lebih Hemat</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">Rp29.000</div>
+        <div class="card-qty">
+          <button class="qty-btn" onclick="changeQty('p3', -1)">−</button>
+          <span class="qty-num" id="qty-p3">1</span>
+          <button class="qty-btn" onclick="changeQty('p3', 1)">+</button>
+        </div>
+      </div>
+      <button class="buy-btn-card" onclick="addToCart('Pocari Sweat 6-Pack', 'p3', 32000)">🛒 Tambah ke Keranjang</button>
+    </div>
+
+  </div>
+
+  <!-- Order Summary -->
+  <div class="order-summary" id="orderSummary">
+    <div class="order-title">🧾 Ringkasan Pesanan</div>
+    <div id="cartItems">
+      <div class="order-empty">Belum ada produk dipilih.</div>
+    </div>
+    <div class="order-row" style="margin-top:8px;">
+      <span style="font-weight:600; color:var(--white)">Total</span>
+      <span class="order-total" id="totalPrice">Rp0</span>
+    </div>
+    <a href="#" class="checkout-btn" id="checkoutBtn" onclick="checkout(event)">
+      💳 Lanjut ke Pembayaran →
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">POCARI<span>&nbsp;SWEAT</span></div>
+  <div class="footer-copy">© 2025 Otsuka Pharmaceutical · GO SWEAT GO ION!</div>
+</footer>
+
+<script>
+  const qtys = { p1: 1, p2: 1, p3: 1 };
+  const cart = {};
+
+  function changeQty(id, delta) {
+    qtys[id] = Math.max(1, qtys[id] + delta);
+    document.getElementById('qty-' + id).textContent = qtys[id];
+  }
+
+  function addToCart(name, id, price) {
+    if (cart[id]) {
+      cart[id].qty += qtys[id];
+    } else {
+      cart[id] = { name, price, qty: qtys[id] };
+    }
+    renderCart();
+  }
+
+  function renderCart() {
+    const items = Object.entries(cart);
+    const container = document.getElementById('cartItems');
+    if (!items.length) { container.innerHTML = '<div class="order-empty">Belum ada produk dipilih.</div>'; document.getElementById('totalPrice').textContent = 'Rp0'; return; }
+    let total = 0;
+    container.innerHTML = items.map(([id, item]) => {
+      const sub = item.price * item.qty;
+      total += sub;
+      return `<div class="order-row">
+        <span>${item.name} × ${item.qty}</span>
+        <span style="display:flex;align-items:center;gap:10px;">
+          ${formatRp(sub)}
+          <button onclick="removeFromCart('${id}')" style="background:rgba(255,80,80,0.2);border:1px solid rgba(255,80,80,0.3);color:#ff8080;width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:0.9rem;display:flex;align-items:center;justify-content:center;">×</button>
+        </span>
+      </div>`;
+    }).join('');
+    document.getElementById('totalPrice').textContent = formatRp(total);
+  }
+
+  function removeFromCart(id) { delete cart[id]; renderCart(); }
+
+  function formatRp(n) { return 'Rp' + n.toLocaleString('id-ID'); }
+
+  function checkout(e) {
+    e.preventDefault();
+    const items = Object.entries(cart);
+    if (!items.length) { alert('Pilih produk terlebih dahulu!'); return; }
+    const total = items.reduce((s, [, i]) => s + i.price * i.qty, 0);
+    const orderData = { items: items.map(([, i]) => i), total, orderId: 'PS-' + Date.now() };
+    sessionStorage.setItem('pocariOrder', JSON.stringify(orderData));
+    window.location.href = 'pembayaran.html';
+  }
+</script>
+</body>
+</html>
